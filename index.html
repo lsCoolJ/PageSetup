@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Xbee S1 Communication : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Xbee S1 Communication</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/lsCoolJ/PageSetup">View on GitHub</a>
+
+          <h1 id="project_title">Xbee S1 Communication</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/lsCoolJ/PageSetup/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/lsCoolJ/PageSetup/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="xbee-s1-communication" class="anchor" href="#xbee-s1-communication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Xbee S1 Communication</h1>
+
+<p>This page is to document the process I have gone through using the Xbee S1 wireless communication device.</p>
+
+<h2>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
+
+<h3>
+<a id="hardware" class="anchor" href="#hardware" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hardware</h3>
+
+<p>The first step in this process is to get the hardware needed. You will need two Xbee devices (you may choose whichever ones fit your needs. I will be using two <a href="http://www.adafruit.com/products/128?gclid=CILU4I7Ag8QCFU1ffgodfXkACQ">Series 1 Xbee</a> Devices), two computers (or a device that has access to a terminal so that we can view serial communication between the Xbees. I will be using a computer and a <a href="http://www.adafruit.com/products/998?gclid=CLj2x4vBg8QCFRSPfgodRoMAhw">Raspberry Pi B+ Model</a> for this), and for the purpose of this demonstration, you will need to purchase a <a href="https://www.sparkfun.com/products/11812">Xbee Explorer USB</a> and/or a <a href="https://www.sparkfun.com/products/8276">Xbee Breakout Module</a>. You will also need any jumper cables or connecting wires needed to make this work.</p>
+
+<h3>
+<a id="software" class="anchor" href="#software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Software</h3>
+
+<p>For this demonstration, you will need to download <a href="http://www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/xctu">XCTU</a> onto one or both computers. You don't actually <em>need</em> to download this, but it makes it way easier when configuring the XBees and I will not be going into how to set up the XBees otherwise.</p>
+
+<h3>
+<a id="configuring-the-xbees" class="anchor" href="#configuring-the-xbees" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring the Xbees</h3>
+
+<p>Plug one of your XBee S1s into the USB Explorer and connect that to your computer:
+<img src="lsCoolJ.github.io/Xbee-USB-Explorer.jpg" alt="Xbee Explorer Plugged In"></p>
+
+<p>Start XCTU. You should see this screen:
+<img src="lsCoolJ.github.io/XCTU-Home-Page.jpg" alt="XCTU Home Page"></p>
+
+<p>Click on the <strong>Discover Devices</strong> button in the upper left hand corner. This will bring up this window:
+<img src="lsCoolJ.github.io/Discover-Devices-Window.jpg" alt="Discover Devices Window"></p>
+
+<p>Mac users will see something similar to what is above where there is one port called “usbserial-XXXXXXXX” while Windows users will see something like “USB Serial Port”. Select one of these and then click the <strong>Next</strong> button. This will bring up a screen similar to this:
+<img src="lsCoolJ.github.io/Discover-Devices-2.jpg" alt="Discover Devices 2"></p>
+
+<p>Make sure you have at least the 9600 baud rate selected as well as 8-bits. These options should be selected by default. Click on <strong>Finish</strong> and, if your XBee is connected correctly, you should see this screen:
+<img src="lsCoolJ.github.io/Devices-Found.jpg" alt="Devices Found"></p>
+
+<p>Go ahead and click on the <strong>Add Selected Devices</strong> button. Now you should click on the new Radio module that was just added. XCTU will read the radio settings now and this can take a few seconds to complete. Now we come to the actual setting up part. </p>
+
+<p>On the left window of XCTU you should see the radio configuration tab:
+<img src="lsCoolJ.github.io/Radio-Configuration-Tab.jpg" alt="Radio Configuration Tab"></p>
+
+<p>Here is where you want to set up the channel (CH), Personal Area Network ID (ID), source ID (MY) and destination ID (DL). To figure out addresses for your two XBees, fill out the following with numbers in the specified range:
+Xbee1 | Xbee2
+------|------
+CH: 10 - 19 (or 0x0B to 0x1A in hex) | CH: same as CH for XBee A 
+ID: 0 - 9999 (or up to 0xFFFF in hex) | ID: same as ID for XBee A 
+DL: 0 - 9999 (or up to 0xFFFF in hex) | DL: must match MY of XBee A
+MY: 0 - 9999 (or up to 0xFFFF in hex) | MY: must match DH of XBee A </p>
+
+<p>For the DL and MY, it was easy to just set those as the last 4 digits of the MAC addresses associated with each of the Xbees. To see the MAC address of the other XBee, just look at the back of the Xbee and it should be printed on there:
+<img src="lsCoolJ.github.io/XBee-Mac.jpg" alt="Xbee Mac Address"></p>
+
+<p>As for the Channel and the ID, as long as those meet the criteria above, then that whatever you choose is perfectly fine (they don't have to be D and 5).</p>
+
+<p>Now you should be able to communicate between the two xbees</p>
+
+<h2>
+<a id="ways-to-communicate-between-two-xbees" class="anchor" href="#ways-to-communicate-between-two-xbees" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ways to communicate between two Xbees</h2>
+
+<p>There are a few different ways to communicate between the two different xbees. Each way has a little different set up required for it.</p>
+
+<h3>
+<a id="communication-between-two-xbees-via-the-ui" class="anchor" href="#communication-between-two-xbees-via-the-ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via the UI</h3>
+
+<p>The setup for this should be the easiest. The first step is to connect the Xbees either to the same computer or connect the second one to another computer and do the same setup that we already finished for the first xbee using XCTU.</p>
+
+<p>In XCTU, click on the <strong>Console</strong> tab and then click on the icon that looks like an unplugged cable. Do this on both computers and you will be able to send data packets between the two xbees.</p>
+
+<h3>
+<a id="communication-between-two-xbees-via-screen" class="anchor" href="#communication-between-two-xbees-via-screen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via screen</h3>
+
+<p>You can also just use screen and never have to take your hands off the keyboard!!! Open up terminal (if you're on a mac) and (if you have screen installed) type something similar to <code>screen /dev/tty.usbserial-A702YQ5S 9600</code> into your console. What comes after the usbserial will be different usually so after typing <code>screen /dev/tty.usb</code> then just press the tab button and it will auto complete with the port, unless you have more than one usb module plugged in, in which case you will have to select the right one. The 9600 after the port is the baud rate, which should be 9600 on both devices. </p>
+
+<p>After you set up screen on both computers, then this will open up a communication channel between the two XBees (as long as you set up the Channel, ID, Source and Destination correctly). Anything you type on one screen will show up on the other.</p>
+
+<h3>
+<a id="communication-between-two-xbees-via-python-code" class="anchor" href="#communication-between-two-xbees-via-python-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via python code</h3>
+
+<p>If you don't like to use the User Interface provided by XCTU and you want more control than what screen can give you, then I suggest communicating using python code. By using a python script, you can start doing stuff with what is given to you from the other XBee.</p>
+
+<p>Here's the python script that I used. I put the script on both computers (a Mac and a Raspberry Pi with Raspbian) and ran the command <code>$ python serialComm.py</code>:</p>
+
+<div class="highlight highlight-Python"><pre><span class="pl-c"># serialComm.py</span>
+<span class="pl-c"># imported modules</span>
+<span class="pl-k">import</span> os                   <span class="pl-c"># portable way of using operating system dependent functionality</span>
+<span class="pl-k">import</span> sys                  <span class="pl-c"># provides access to some variables used or maintained by the interpreter</span>
+<span class="pl-k">import</span> time                 <span class="pl-c"># provides various time-related functions</span>
+<span class="pl-k">import</span> fcntl                <span class="pl-c"># performs file control and I/O control on file descriptors</span>
+<span class="pl-k">import</span> serial               <span class="pl-c"># encapsulates the access for the serial port</span>
+
+serial <span class="pl-k">=</span> serial.Serial()
+serial.port <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>/dev/tty.usbserial-A702YQ5S<span class="pl-pds">'</span></span>
+serial.baudrate <span class="pl-k">=</span> <span class="pl-c1">9600</span>
+serial.timeout <span class="pl-k">=</span> <span class="pl-c1">1</span>
+serial.writeTimeout <span class="pl-k">=</span> <span class="pl-c1">1</span>
+serial.open()
+
+<span class="pl-c"># make stdin a non-blocking file</span>
+fcntl.fcntl(sys.stdin, fcntl.F_SETFL, os.O_NONBLOCK)
+
+<span class="pl-c"># post startup message to other XBee's and at stdout</span>
+serial.writelines(<span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is up and running.<span class="pl-cce">\r</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>)
+<span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is up and running.<span class="pl-pds">"</span></span>
+
+<span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>Entering loop to read and print messages (Ctrl-C to abort)...<span class="pl-pds">"</span></span>
+
+<span class="pl-k">try</span>:
+    <span class="pl-k">while</span> <span class="pl-c1">True</span>:
+        line <span class="pl-k">=</span> serial.readline().decode(<span class="pl-s1"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>)
+        <span class="pl-k">if</span> line:
+            <span class="pl-k">print</span> line
+
+        <span class="pl-c"># read data from the keyboard (i.e. stdin) and send via the XBee modem</span>
+        <span class="pl-k">try</span>:
+            line <span class="pl-k">=</span> sys.stdin.readline()
+            serial.write(line)
+        <span class="pl-k">except</span> <span class="pl-s3">IOError</span>:
+            time.sleep(<span class="pl-c1">0.1</span>)
+            <span class="pl-k">continue</span>
+
+<span class="pl-k">except</span> <span class="pl-s3">KeyboardInterrupt</span>:
+    <span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>*** Ctrl-C keyboard interrupt ***<span class="pl-pds">"</span></span>
+    serial.writelines(<span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is going down.<span class="pl-cce">\r</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>)</pre></div>
+
+<hr>
+
+<p>Now you should be able to type on one device and receive messages on the other. You can play around with the script so you can get different results. Also, you can plug the Xbee into other devices with serial communication such as Arduino boards and Tiva launchpads.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Xbee S1 Communication maintained by <a href="https://github.com/lsCoolJ">lsCoolJ</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
