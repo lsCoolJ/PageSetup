@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Xbee S1 Communication by lsCoolJ</title>
+    <title>Raspberry Pi by lsCoolJ</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -31,140 +31,157 @@
 
       <section>
         <div id="title">
-          <h1>Xbee S1 Communication</h1>
+          <h1>Raspberry Pi</h1>
           <p></p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/lsCoolJ">lsCoolJ</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h1>
-<a id="xbee-s1-communication" class="anchor" href="#xbee-s1-communication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Xbee S1 Communication</h1>
+        <p>The Raspberry Pi is a compact computer that can be used for many, many cool things such as your own personal network storage device, a personal music player, a retro video game player, etc. Setting up the raspberry pi is relatively easy, too, which makes using one very practical.</p>
 
-<p>This page is to document the process I have gone through using the Xbee S1 wireless communication device.</p>
-
-<h2>
-<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
-
-<h3>
-<a id="hardware" class="anchor" href="#hardware" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hardware</h3>
-
-<p>The first step in this process is to get the hardware needed. You will need two Xbee devices (you may choose whichever ones fit your needs. I will be using two <a href="http://www.adafruit.com/products/128?gclid=CILU4I7Ag8QCFU1ffgodfXkACQ">Series 1 Xbee</a> Devices), two computers (or a device that has access to a terminal so that we can view serial communication between the Xbees. I will be using a computer and a <a href="http://www.adafruit.com/products/998?gclid=CLj2x4vBg8QCFRSPfgodRoMAhw">Raspberry Pi B+ Model</a> for this), and for the purpose of this demonstration, you will need to purchase a <a href="https://www.sparkfun.com/products/11812">Xbee Explorer USB</a> and/or a <a href="https://www.sparkfun.com/products/8276">Xbee Breakout Module</a>. You will also need any jumper cables or connecting wires needed to make this work.</p>
-
-<h3>
-<a id="software" class="anchor" href="#software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Software</h3>
-
-<p>For this demonstration, you will need to download <a href="http://www.digi.com/products/wireless-wired-embedded-solutions/zigbee-rf-modules/xctu">XCTU</a> onto one or both computers. You don't actually <em>need</em> to download this, but it makes it way easier when configuring the XBees and I will not be going into how to set up the XBees otherwise.</p>
-
-<h3>
-<a id="configuring-the-xbees" class="anchor" href="#configuring-the-xbees" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring the Xbees</h3>
-
-<p>Plug one of your XBee S1s into the USB Explorer and connect that to your computer:
-<img src="lsCoolJ.github.io/Xbee-USB-Explorer.jpg" alt="Xbee Explorer Plugged In"></p>
-
-<p>Start XCTU. You should see this screen:
-<img src="lsCoolJ.github.io/XCTU-Home-Page.jpg" alt="XCTU Home Page"></p>
-
-<p>Click on the <strong>Discover Devices</strong> button in the upper left hand corner. This will bring up this window:
-<img src="lsCoolJ.github.io/Discover-Devices-Window.jpg" alt="Discover Devices Window"></p>
-
-<p>Mac users will see something similar to what is above where there is one port called “usbserial-XXXXXXXX” while Windows users will see something like “USB Serial Port”. Select one of these and then click the <strong>Next</strong> button. This will bring up a screen similar to this:
-<img src="lsCoolJ.github.io/Discover-Devices-2.jpg" alt="Discover Devices 2"></p>
-
-<p>Make sure you have at least the 9600 baud rate selected as well as 8-bits. These options should be selected by default. Click on <strong>Finish</strong> and, if your XBee is connected correctly, you should see this screen:
-<img src="lsCoolJ.github.io/Devices-Found.jpg" alt="Devices Found"></p>
-
-<p>Go ahead and click on the <strong>Add Selected Devices</strong> button. Now you should click on the new Radio module that was just added. XCTU will read the radio settings now and this can take a few seconds to complete. Now we come to the actual setting up part. </p>
-
-<p>On the left window of XCTU you should see the radio configuration tab:
-<img src="lsCoolJ.github.io/Radio-Configuration-Tab.jpg" alt="Radio Configuration Tab"></p>
-
-<p>Here is where you want to set up the channel (CH), Personal Area Network ID (ID), source ID (MY) and destination ID (DL). To figure out addresses for your two XBees, fill out the following with numbers in the specified range:
-Xbee1 | Xbee2
-------|------
-CH: 10 - 19 (or 0x0B to 0x1A in hex) | CH: same as CH for XBee A 
-ID: 0 - 9999 (or up to 0xFFFF in hex) | ID: same as ID for XBee A 
-DL: 0 - 9999 (or up to 0xFFFF in hex) | DL: must match MY of XBee A
-MY: 0 - 9999 (or up to 0xFFFF in hex) | MY: must match DH of XBee A </p>
-
-<p>For the DL and MY, it was easy to just set those as the last 4 digits of the MAC addresses associated with each of the Xbees. To see the MAC address of the other XBee, just look at the back of the Xbee and it should be printed on there:
-<img src="lsCoolJ.github.io/XBee-Mac.jpg" alt="Xbee Mac Address"></p>
-
-<p>As for the Channel and the ID, as long as those meet the criteria above, then that whatever you choose is perfectly fine (they don't have to be D and 5).</p>
-
-<p>Now you should be able to communicate between the two xbees</p>
+<h1>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
 
 <h2>
-<a id="ways-to-communicate-between-two-xbees" class="anchor" href="#ways-to-communicate-between-two-xbees" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ways to communicate between two Xbees</h2>
+<a id="what-you-need" class="anchor" href="#what-you-need" aria-hidden="true"><span class="octicon octicon-link"></span></a>What you need</h2>
 
-<p>There are a few different ways to communicate between the two different xbees. Each way has a little different set up required for it.</p>
+<ol>
+<li><p>A Raspberry Pi (Duh)
+You can find raspberry pis online for around 35 to 40 dollars. It doesn't particularly matter which raspberry pi you get, as long as it feeds your needs. One of the most common pis to get is the <a href="http://www.mcmelectronics.com/product/83-14421?scode=GS401&amp;utm_medium=cse&amp;utm_source=google&amp;utm_campaign=google&amp;catargetid=530004080000291138&amp;cadevice=c&amp;gclid=CNi6z4balsQCFY2TfgodkDIAWQ">Model B</a>: 
+<img src="/RaspberryPiImages/RaspberryPiModelB.jpg" alt="Raspberry Pi Model B"></p></li>
+<li><p>A <a href="https://www.virtuabotix.com/product/official-raspberry-pi-psu-usb-micro-ac-adapter-100-240vac-5060hz-input-1a-5v-output/?gclid=CN2CmurslsQCFU6VfgodER4A0w">Power Source</a>. You will need an AC adapter with a USB micro cable. Make sure the AC Adapter can power 5V.</p></li>
+<li><p>An <a href="http://www.walmart.com/ip/14271727?wmlspartner=wlpa&amp;selectedSellerId=0&amp;adid=22222222227000427610&amp;wl0=&amp;wl1=g&amp;wl2=c&amp;wl3=40333325192&amp;wl4=&amp;wl5=pla&amp;wl6=78294467072&amp;veh=sem">SD Card</a> with at least 4 GB (recommended 8GB) of memory. I recommend a micro SD card so you can use it with both a B and B+ Raspberry Pi.</p></li>
+<li><p>A computer monitor or TV (with HDMI).</p></li>
+<li><p>A usb keyboard and mouse. I suggest a <a href="http://www.walmart.com/ip/17253322?wmlspartner=wlpa&amp;adid=22222222227000987195&amp;wl0=&amp;wl1=g&amp;wl2=c&amp;wl3=40880346152&amp;wl4=&amp;wl5=pla&amp;wl6=78810085952&amp;veh=sem">keyboard</a> that has the mouse track pad built into it so that you're only taking up one usb port on your raspberry pi.
+<img src="/RaspberryPiImages/LogitechWirelessKeyboard.jpg" alt="Wireless keyboard"></p></li>
+<li><p>HDMI Cable. You can get an <a href="http://www.overstock.com/Electronics/A-V-Cables/12936/subcat.html?gclid=CLK_ncHblsQCFQGTfgodXBYATg&amp;featuredproduct=4571618&amp;featuredoption=11743182&amp;cid=202290&amp;kid=9553000357392&amp;track=pspla&amp;ci_src=17588969&amp;ci_sku=12508359-000-002&amp;ef_id=VPDlAAAABHSdegbU:20150307165908:s">HDMI to HDMI</a> cable or an <a href="http://www.computercablestore.com/2_Meter_656_FT_HDMI_to_DV_PID50414.aspx">HDMI to DVI</a> cable, whichever fits your needs.</p></li>
+<li><p>A Network connection. You can either use a <a href="http://www.monoprice.com/Product?seq=1&amp;kpid=8072&amp;format=2&amp;p_id=8072&amp;CAWELAID=1329456150&amp;CAGPSPN=pla%26catargetid=320013720000066114%26cadevice=c&amp;gclid=CPfP5JLglsQCFUiEfgodaG4Auw">Wifi Dongle</a>, or an Ethernet cable connected to a wireless bridge. A network connection is important to have in case you want to install software on the pi or if you want to access your pi remotely.</p></li>
+<li><p>Speakers are optional.</p></li>
+</ol>
+
+<h2>
+<a id="flashing-the-sd-card-with-an-image" class="anchor" href="#flashing-the-sd-card-with-an-image" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flashing the SD card with an image.</h2>
+
+<blockquote>
+<blockquote>
+<p>Note: If you don't want to go through the process of flashing your own SD card, you can purchase a <a href="http://www.amazon.com/s/?ie=UTF8&amp;keywords=noobs+8gb+sd+card&amp;tag=googhydr-20&amp;index=aps&amp;hvadid=30016330887&amp;hvpos=1t1&amp;hvexid=&amp;hvnetw=g&amp;hvrand=13008567602860380120&amp;hvpone=&amp;hvptwo=&amp;hvqmt=b&amp;hvdev=c&amp;ref=pd_sl_7n6ojb957x_b">pre-loaded one</a> off Amazon or other websites.</p>
+</blockquote>
+</blockquote>
+
+<p>The Raspberry Pi typically runs on a form of Debian (a linux-like operating system). The first step of getting your Raspberry Pi to run is to put this image on the SD card so that your Pi can actually boot up. While your Mac, or PC, uses a magnetic hard disc drive (HDD) or a Solid State Drive (SSD), your Raspberry Pi has no internal storage of its own.</p>
+
+<p>Instead, the Raspberry Pi uses a Secure Digital (SD) card, like the ones that are used for storage in digital cameras.</p>
+
+<p>This means that the Raspberry Pi will run from whatever operating system you install on an SD card. You can easily flash the SD card with an operating system on your Mac or PC. Here's how:</p>
+
+<h2>
+<a id="using-os-x" class="anchor" href="#using-os-x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using OS X</h2>
 
 <h3>
-<a id="communication-between-two-xbees-via-the-ui" class="anchor" href="#communication-between-two-xbees-via-the-ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via the UI</h3>
+<a id="format-the-card" class="anchor" href="#format-the-card" aria-hidden="true"><span class="octicon octicon-link"></span></a>Format the card</h3>
 
-<p>The setup for this should be the easiest. The first step is to connect the Xbees either to the same computer or connect the second one to another computer and do the same setup that we already finished for the first xbee using XCTU.</p>
+<p>Formatting an SD card is quite straight forward with Mac OS X. Start by pressing CMD SPACE to reveal the Spotlight search bar. In this search bar, type "disk utility" and press return to launch the Disk Utility application.</p>
 
-<p>In XCTU, click on the <strong>Console</strong> tab and then click on the icon that looks like an unplugged cable. Do this on both computers and you will be able to send data packets between the two xbees.</p>
-
-<h3>
-<a id="communication-between-two-xbees-via-screen" class="anchor" href="#communication-between-two-xbees-via-screen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via screen</h3>
-
-<p>You can also just use screen and never have to take your hands off the keyboard!!! Open up terminal (if you're on a mac) and (if you have screen installed) type something similar to <code>screen /dev/tty.usbserial-A702YQ5S 9600</code> into your console. What comes after the usbserial will be different usually so after typing <code>screen /dev/tty.usb</code> then just press the tab button and it will auto complete with the port, unless you have more than one usb module plugged in, in which case you will have to select the right one. The 9600 after the port is the baud rate, which should be 9600 on both devices. </p>
-
-<p>After you set up screen on both computers, then this will open up a communication channel between the two XBees (as long as you set up the Channel, ID, Source and Destination correctly). Anything you type on one screen will show up on the other.</p>
+<p>Select the SD card, in the left hand pane, and then select Erase ensuring that the format is "MS-DOS (FAT)". If the format is already MS-DOS (FAT), then you have nothing to worry about.</p>
 
 <h3>
-<a id="communication-between-two-xbees-via-python-code" class="anchor" href="#communication-between-two-xbees-via-python-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communication between two Xbees via python code</h3>
+<a id="identify-the-card" class="anchor" href="#identify-the-card" aria-hidden="true"><span class="octicon octicon-link"></span></a>Identify the card</h3>
 
-<p>If you don't like to use the User Interface provided by XCTU and you want more control than what screen can give you, then I suggest communicating using python code. By using a python script, you can start doing stuff with what is given to you from the other XBee.</p>
+<p>Open Terminal. If you need help finding this, press CMD SPACE as you did above and type in "Terminal" and press return. Type in <code>diskutil list</code> to get a list of the disks your computer is currently using. You should see this in your terminal:
+<img src="/RaspberryPiImages/diskutilList.jpg" alt="diskutil list"></p>
 
-<p>Here's the python script that I used. I put the script on both computers (a Mac and a Raspberry Pi with Raspbian) and ran the command <code>$ python serialComm.py</code>:</p>
+<p>Make sure you know which disk is your SD card. For example, mine is <code>/dev/disk1</code>. If you use the wrong disk, you'll end up messing up your computer pretty badly.</p>
 
-<div class="highlight highlight-Python"><pre><span class="pl-c"># serialComm.py</span>
-<span class="pl-c"># imported modules</span>
-<span class="pl-k">import</span> os                   <span class="pl-c"># portable way of using operating system dependent functionality</span>
-<span class="pl-k">import</span> sys                  <span class="pl-c"># provides access to some variables used or maintained by the interpreter</span>
-<span class="pl-k">import</span> time                 <span class="pl-c"># provides various time-related functions</span>
-<span class="pl-k">import</span> fcntl                <span class="pl-c"># performs file control and I/O control on file descriptors</span>
-<span class="pl-k">import</span> serial               <span class="pl-c"># encapsulates the access for the serial port</span>
+<p>Next, you'll need to unmount your disk if it is automatically mounted. To do this, type in the terminal <code>diskutil unmountDisk /dev/disk1</code>. Be sure to change the disk number if you identified yours to be different.</p>
 
-serial <span class="pl-k">=</span> serial.Serial()
-serial.port <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>/dev/tty.usbserial-A702YQ5S<span class="pl-pds">'</span></span>
-serial.baudrate <span class="pl-k">=</span> <span class="pl-c1">9600</span>
-serial.timeout <span class="pl-k">=</span> <span class="pl-c1">1</span>
-serial.writeTimeout <span class="pl-k">=</span> <span class="pl-c1">1</span>
-serial.open()
+<h3>
+<a id="downloading-an-image" class="anchor" href="#downloading-an-image" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloading an image</h3>
 
-<span class="pl-c"># make stdin a non-blocking file</span>
-fcntl.fcntl(sys.stdin, fcntl.F_SETFL, os.O_NONBLOCK)
+<p>Now you'll want to download the image you want to put on your Pi. <a href="http://downloads.raspberrypi.org/">http://downloads.raspberrypi.org/</a> has many images to choose from. I personally chose the basic Raspbian image located at the top of this page: <a href="http://downloads.raspberrypi.org/raspbian/images/raspbian-2015-02-17/">http://downloads.raspberrypi.org/raspbian/images/raspbian-2015-02-17/</a>. You may, however, choose whichever image fits you best.</p>
 
-<span class="pl-c"># post startup message to other XBee's and at stdout</span>
-serial.writelines(<span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is up and running.<span class="pl-cce">\r</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>)
-<span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is up and running.<span class="pl-pds">"</span></span>
+<h3>
+<a id="flash-the-card" class="anchor" href="#flash-the-card" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flash the card</h3>
 
-<span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>Entering loop to read and print messages (Ctrl-C to abort)...<span class="pl-pds">"</span></span>
+<p>Now that you have an image downloaded, you'll want to navigate to the folder where you downloaded and extracted the image. This will typically be your Downloads folder if you did not change the location or extract the folder in a different place. If you haven't extracted your image yet, then simply open up Finder, navigate to your downloads folder and open the zip file you just downloaded.</p>
 
-<span class="pl-k">try</span>:
-    <span class="pl-k">while</span> <span class="pl-c1">True</span>:
-        line <span class="pl-k">=</span> serial.readline().decode(<span class="pl-s1"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>)
-        <span class="pl-k">if</span> line:
-            <span class="pl-k">print</span> line
+<p>Navigate to the folder by typing <code>cd Downloads</code> into your terminal.</p>
 
-        <span class="pl-c"># read data from the keyboard (i.e. stdin) and send via the XBee modem</span>
-        <span class="pl-k">try</span>:
-            line <span class="pl-k">=</span> sys.stdin.readline()
-            serial.write(line)
-        <span class="pl-k">except</span> <span class="pl-s3">IOError</span>:
-            time.sleep(<span class="pl-c1">0.1</span>)
-            <span class="pl-k">continue</span>
+<p>Now we are going to use the dd command in terminal. This command is very powerful and you risk serious corruption to your Mac if you use it incorrectly. Triple check your command before executing it.</p>
 
-<span class="pl-k">except</span> <span class="pl-s3">KeyboardInterrupt</span>:
-    <span class="pl-k">print</span> <span class="pl-s1"><span class="pl-pds">"</span>*** Ctrl-C keyboard interrupt ***<span class="pl-pds">"</span></span>
-    serial.writelines(<span class="pl-s1"><span class="pl-pds">"</span>RPi #1 is going down.<span class="pl-cce">\r</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>)</pre></div>
+<p>Ensuring that you replace the .img and destination, in my example, with the correct .img name destination disc for yours, enter the following command:</p>
 
-<hr>
+<p><code>sudo dd if=2015-02-16-raspbian-wheezy.img of=/dev/disk1 bs=2m</code></p>
 
-<p>Now you should be able to type on one device and receive messages on the other. You can play around with the script so you can get different results. Also, you can plug the Xbee into other devices with serial communication such as Arduino boards and Tiva launchpads.</p>
+<p>This process can take a few minutes, so go ahead and take a break. Go to the bathroom or get a snack. Once the process is complete, you should see a few lines in the terminal indicating records were transferred and bytes were moved. For example:</p>
+
+<pre><code>925+0 records in
+925+0 records out
+19398665600 bytes transferred in 576.382578 secs (3365587 bytes/sec)
+</code></pre>
+
+<p>You are now free to unmount the SD card for use on your Raspberry Pi</p>
+
+<h2>
+<a id="using-linux" class="anchor" href="#using-linux" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Linux</h2>
+
+<p>The process is very similar to the OS X process, although there is a minor difference when identifying the card. When you want to identify the card, simply type <code>sudo fdisk -l</code>. The rest of the process is the same.</p>
+
+<h2>
+<a id="using-windows" class="anchor" href="#using-windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Windows</h2>
+
+<h3>
+<a id="format-the-card-1" class="anchor" href="#format-the-card-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Format the card</h3>
+
+<p>Locate your SD card drive, in Windows Explorer, and right-click the mouse to bring up the context-senstive menu. From the menu select <strong>Format</strong>…. Ensure that the option <strong>FAT32 (Default)</strong> is selected and click <strong>Start</strong>.</p>
+
+<p><img src="/RaspberryPiImages/SelectingSDCardWindows.jpg" alt="Selecting an SD card to format"></p>
+
+<p>A few moments later you will see a confirmation that the format has been completed and you SD card is now ready for the next stage.</p>
+
+<p><img src="/RaspberryPiImages/FormattingSDCard.jpg" alt="Formatting the SD Card"></p>
+
+<h3>
+<a id="download-image-writer" class="anchor" href="#download-image-writer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download Image Writer</h3>
+
+<p>In order to flash the SD card in Windows, it is necessary to first download a third-party application named <a href="https://launchpad.net/win32-image-writer">Image Writer</a>. (Here’s the <a href="http://sourceforge.net/projects/win32diskimager/files/latest/download">direct SourceForge link for Image Writer</a>)</p>
+
+<p>Once downloaded, uncompress the .zip file by secondary-clicking it and selecting Extract all from the context-sensitive menu. This will normally place a folder of extracted files into the same folder that contains the downloaded .zip file.</p>
+
+<h3>
+<a id="flash-the-sd-card" class="anchor" href="#flash-the-sd-card" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flash the SD Card</h3>
+
+<p>Locate and open the folder of uncompressed files that you recently downloaded. Launch the Image Writer application by double-clicking the <strong>Win32DiskImager.exe</strong> program that you can see in the folder of extracted files.</p>
+
+<p>If your PC asks you, give permission for the program to make modifications. This will open the Image Writer program.</p>
+
+<p><img src="/RaspberryPiImages/WindowsAppPermission.jpg" alt="Grant permission for the program to run"></p>
+
+<p>In Image Writer click on the blue folder icon, to the right of the white box, and locate your .img file. This will be contained within a folder that you extracted from the downloaded .zip file. Select the .img file and click Open to populate the white box with the path to your image.</p>
+
+<p><img src="/RaspberryPiImages/ImageWriter.jpg" alt="Selecting the Image in Image Writer"></p>
+
+<p>In the <strong>Device</strong> box, on the right, ensure that the drive letter for your SD card is selected.</p>
+
+<p><strong>Tip:</strong> You can double-check the correct drive letter, for your SD card, by pressing CRTL E to open Windows Explorer and locating the SD card drive.</p>
+
+<p>When you are satisfied that the path to the .img file and the destination drive letter are both correct, click the <strong>Write</strong> button to start the process of flashing the SD card. The process will take four or five minutes and you will be shown a green progress bar during the course of the operation.</p>
+
+<p><img src="/RaspberryPiImages/ImageWriterProgress.jpg" alt="Image Writer Progress"></p>
+
+<p>Upon completion, a confirmation window will be displayed and you will be free to close Image Writer and eject the SD card before removing it.</p>
+
+<p><img src="/RaspberryPiImages/IWcompletion.jpg" alt="Confirmation message on completion of flashing the SD card"></p>
+
+<h1>
+<a id="using-the-raspberry-pi" class="anchor" href="#using-the-raspberry-pi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the Raspberry Pi</h1>
+
+<p>Now that you've flashed your SD card, go ahead and put it into the slot on your Raspberry Pi. Then you'll want to connect the HDMI cable, Wifi dongle/Ethernet cable, and finally the power cable.</p>
+
+<h2>
+<a id="booting-up" class="anchor" href="#booting-up" aria-hidden="true"><span class="octicon octicon-link"></span></a>Booting up</h2>
+
+<p>Once you plug your Pi into a power source, you'll see the boot process on your screen. Once it's done booting up, the pi will ask for your username and password. By default, all Raspbian images have the default username <code>pi</code> and the default password <code>raspberry</code>. Now you can do whatever you want!!! I recommend googling Raspberry Pi Projects and doing something cool. Remember, the more familiar you get with the raspberry pi, the more you will have to use bash (the command line). Don't be afraid to ask others if you have questions on how to do something in bash.</p>
       </section>
 
     </div>
