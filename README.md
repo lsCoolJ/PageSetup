@@ -3,7 +3,7 @@
 This repository was made in order to set up web pages in markdown very easily which will then be translated into html by github.
 After making the website in this repository, the html is just transferred over to my github pages repository.
 
-# Creating a new web page
+# Creating a new web site
 ### The long method
 There are a few ways to create a new webpage using github pages. The first is to create a whole new repository labeled whatevever you want the file extension to be. For example, if you wanted the webpage to be named lsCoolJ.github.io/newpage, then you would name the repository newpage.
 
